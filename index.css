@@ -15,22 +15,27 @@ body {
     margin: 0;
     padding: 0;
     display: inline-block;
-    width: 6.09%;
-    height: 11%;
+    width: 6.1%;
+    height: 10.4%;
     border: 1px solid black;
-    background-color: gold;
 }
 
 #api-music {
     width: 20%;
     height: 100%;
-    background-color: lightgrey;
+    background-color: black;
+    color: white;
+}
+
+#api-music button {
+    width: 32%;
 }
 
 .searchNav {
-    height: 15%;
-    width: 90%;
-    margin-left: 10%;
+    height: auto;
+    width: 95%;
+    margin-left: 5%;
+    padding-bottom: 10px;
 }
 
 .searchNav input {
@@ -47,11 +52,14 @@ body {
     width: 100%;
     height: 15%;
     font-size: 18px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
+    padding-left: 3px;
+    border-radius: 5px;
 }
 
 .trackInfo:hover {
     background-color: white;
+    color: black;
 }
 
 #musicForms {
@@ -64,6 +72,39 @@ body {
 }
 
 #field {
+    padding-top: 5px;
     width: 80%;
-    background-color: antiquewhite;
+    background-color: black;
+}
+
+#nowPlayingBlock {
+    display: none;
+    position: fixed;
+    width: 20%;
+    height: auto;
+    background-color: white;
+    bottom: 0;
+    font-size: 20px;
+    border-top: 3px solid black;
+    box-shadow: 0 -12px 14px 1px rgba(0, 0, 0, 0.75);
+    border-radius: 5px 5px 0 0;
+}
+
+#nowPlayingInfo {
+    padding-left: 5%;
+    font-weight: bold;
+    color: black;
+}
+
+#myCanvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#audio {
+    margin-bottom: 0;
 }
