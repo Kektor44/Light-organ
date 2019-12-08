@@ -30,9 +30,12 @@ body {
 #api-music button {
     width: 32%;
 }
-.settings{
+
+#settings {
+    display: none;
     margin-top: 5px;
 }
+
 .searchNav {
     height: auto;
     width: 95%;
@@ -42,23 +45,28 @@ body {
     border-bottom: 2px solid white;
     border-right: 2px solid white;
 }
-.searchNav p{
+
+.searchNav p {
     font-size: 20px;
     display: inline;
 
 }
-#inputRange{
+
+#inputRange {
     margin-top: 10px;
     width: 77%;
 }
+
 .searchNav input {
     margin: 0;
     display: inline-block;
     width: 60%;
 }
-#input-field-size{
+
+#input-field-size {
     width: 30%;
 }
+
 .searchNav button {
     margin-top: -5px;
     font-size: 1em;
@@ -88,8 +96,9 @@ body {
 }
 
 #field {
-    padding-top: 5px;
     width: 80%;
+    height: 100%;
+    padding-top: 5px;
     background-color: black;
     transform: scaleY(-1)
 }
@@ -126,7 +135,8 @@ body {
     margin-bottom: 0;
     width: 100%;
 }
-#selectColor{
+
+#selectColor {
     width: 29%;
     padding: 6px;
     border-radius: 3px;
@@ -134,8 +144,10 @@ body {
 
 .scrollbar-primary::-webkit-scrollbar {
     width: 12px;
-    background-color: #F5F5F5; }
+    background-color: #F5F5F5;
+}
 
 .scrollbar-primary::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: dimgrey }
+    background-color: dimgrey
+}
