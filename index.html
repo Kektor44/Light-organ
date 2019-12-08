@@ -16,26 +16,34 @@
             <h2>Search music</h2>
             <input class="form-control" value="David Guetta" id="searchValue" type="text">
             <button class="btn btn-success" id="searchBtn">Search</button>
-
+            <div class="settings">
             <input id="input-field-size" class="form-control" value="5" type="number" id="sizeField">
             <button id="editSizeBtn" class="btn btn-warning">Edit size</button>
+            <select name="color" id="selectColor">
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+            </select>
+            </div>
+            <p>Range</p>
+            <input id="inputRange" type="range" min="5" max="150">
         </div>
-        <div id="musicForms">
+        <div id="musicForms" class="scrollbar scrollbar-primary">
 
+        </div>
+        <div id="nowPlayingBlock">
+            <h4 id="nowPlayingInfo"></h4>
+            <audio controls
+                   loop="loop"
+                   id="audio"
+                   crossorigin="anonymous"
+                   type="audio/mp3"
+                   src="">
+            </audio>
+            <canvas id="myCanvas" width=200 height=50></canvas>
         </div>
     </div>
     <div id="field"></div>
-    <div id="nowPlayingBlock">
-        <h4 id="nowPlayingInfo"></h4>
-        <audio controls
-               loop="loop"
-               id="audio"
-               crossorigin="anonymous"
-               type="audio/mp3"
-               src="">
-        </audio>
-        <canvas id="myCanvas" width=200 height=50></canvas>
-    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

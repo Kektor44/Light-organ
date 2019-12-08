@@ -7,6 +7,8 @@ const inputFieldSize = document.getElementById('input-field-size');
 const editSizeBtn = document.getElementById('editSizeBtn');
 const nowPlayingInfo = document.getElementById('nowPlayingInfo');
 const nowPlayingBlock = document.getElementById('nowPlayingBlock');
+const selectColor = document.getElementById('selectColor');
+const inputRange = document.getElementById('inputRange');
 const trackInfo = document.getElementsByClassName('trackInfo');
 let innerContainer;
 let duration;
@@ -14,6 +16,9 @@ let order = 0;
 let colorBlock;
 let timer;
 
+/*selectColor.addEventListener('change', () =>{
+  console.log(selectColor.options[selectColor.selectedIndex].value);
+})*/
 const editFieldSizeFn = () => {
   field.innerHTML = '';
 
@@ -51,39 +56,42 @@ for (let i = 0; i < 144; i++) {
 const block = document.getElementsByClassName('inner-container');
 
 /*let promiseReq = new Promise((resolve, reject) => {*/
-  const request = () => {
-    musicForms.style.display = 'block';
-    nowPlayingBlock.style.display = 'block';
-    let data = null;
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+const request = () => {
+
+  let data = null;
+  const xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
 
 
-
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        const arr = JSON.parse(this.responseText);
-        duration = arr.data[order].duration;
-        console.log(arr);
-        audio.src = arr.data[order].preview;
-        console.log(order);
-        nowPlayingInfo.innerHTML = '';
-        nowPlayingInfo.innerHTML += arr.data[order].artist.name + '<br/>' + arr.data[order].album.title;
-        for (let i = 0; i < arr.data.length; i++) {
-          if (musicForms.childNodes.length !== arr.data.length) {
-            trackInfo[i].innerHTML = [i + 1] + ') Artist: ' + arr.data[i].artist.name + '<br/>' + 'Name: ' + arr.data[i].album.title;
-            trackInfo[i].style.borderTop = '2px solid grey';
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === this.DONE) {
+      musicForms.style.display = 'block';
+      nowPlayingBlock.style.display = 'block';
+      const arr = JSON.parse(this.responseText);
+      duration = arr.data[order].duration;
+      console.log(arr);
+      audio.src = arr.data[order].preview;
+      console.log(order);
+      nowPlayingInfo.innerHTML = '';
+      nowPlayingInfo.innerHTML += arr.data[order].artist.name + '<br/>' + arr.data[order].album.title;
+      for (let i = 0; i < arr.data.length; i++) {
+        if (musicForms.childNodes.length !== arr.data.length) {
+          trackInfo[i].innerHTML = [i + 1] + ') Artist: ' + arr.data[i].artist.name + '<br/>' + 'Name: ' + arr.data[i].album.title;
+          if(trackInfo[i].innerHTML.length > 100){
+            trackInfo[i].innerHTML = trackInfo[i].innerHTML.slice(0, 97) + '...';
           }
-
+          trackInfo[i].style.borderTop = '2px solid grey';
         }
-      }
-    });
-    xhr.open("GET", "https://deezerdevs-deezer.p.rapidapi.com/search?q=" + searchValue.value);
-    xhr.setRequestHeader("x-rapidapi-host", "deezerdevs-deezer.p.rapidapi.com");
-    xhr.setRequestHeader("x-rapidapi-key", "d556ed49bamsh11f375fa68a80fbp14d9d9jsn5d442ccbe6e0");
 
-    xhr.send(data);
-  };
+      }
+    }
+  });
+  xhr.open("GET", "https://deezerdevs-deezer.p.rapidapi.com/search?q=" + searchValue.value);
+  xhr.setRequestHeader("x-rapidapi-host", "deezerdevs-deezer.p.rapidapi.com");
+  xhr.setRequestHeader("x-rapidapi-key", "d556ed49bamsh11f375fa68a80fbp14d9d9jsn5d442ccbe6e0");
+
+  xhr.send(data);
+};
 /*});*/
 searchBtn.addEventListener('click', request);
 
@@ -100,67 +108,86 @@ audio.addEventListener('pause', () => clearInterval(timer))
 // audio.addEventListener('play', () => {timer = setInterval(playMusicAnimation, 500)});
 
 
-
 const audioCtx = window.AudioContext || window.webkitAudioContext;
 let analyser;
 let canvas;
 let audioContext, canvasContext;
 let width, height;
 let dataArray, bufferLength;
+let r, g, b;
+/*const selectVal = selectColor.options[selectColor.selectedIndex].value*/
 
-window.onload = function() {
-    audioContext= new audioCtx();
-    canvas = document.querySelector("#myCanvas");
-    width = canvas.width;
-    height = canvas.height;
-    canvasContext = canvas.getContext('2d');
 
-    buildAudioGraph();
-    requestAnimationFrame(visualize);
+window.onload = function () {
+  audioContext = new audioCtx();
+  canvas = document.querySelector("#myCanvas");
+  width = canvas.width;
+  height = canvas.height;
+  canvasContext = canvas.getContext('2d');
+
+  buildAudioGraph();
+  requestAnimationFrame(visualize);
 };
 const buildAudioGraph = () => {
-    audio.onplay = (e) => {audioContext.resume()};
+  audio.onplay = (e) => {
+    audioContext.resume()
+  };
 
-    audio.addEventListener('play',() => audioContext.resume());
+  audio.addEventListener('play', () => audioContext.resume());
 
-    const sourceNode =   audioContext.createMediaElementSource(audio);
-    analyser = audioContext.createAnalyser();
+  const sourceNode = audioContext.createMediaElementSource(audio);
+  analyser = audioContext.createAnalyser();
 
-    analyser.fftSize = 512;
-    bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
+  analyser.fftSize = 512;
+  bufferLength = analyser.frequencyBinCount;
+  dataArray = new Uint8Array(bufferLength);
 
-    const playMusicAnimation = () => {
 
-        for (let i = 0; i < block.length; i++) {
-            colorBlock = 'rgb(' + dataArray[i] + ',' + 0 + ',' + 0 + ')';
-            block[i].style.backgroundColor = colorBlock
-        }
-    };
-    clearInterval(timer);
-    timer = setInterval(playMusicAnimation, 33);
+  const playMusicAnimation = () => {
+    for (let i = 0; i < block.length; i++) {
+      if (selectColor.options[selectColor.selectedIndex].value === 'red') {
+        r = Math.ceil(dataArray[i] / inputRange.value) * inputRange.value;
+        g = 0;
+        b = 0;
+      }
+      if (selectColor.options[selectColor.selectedIndex].value === 'green') {
+        g = Math.ceil(dataArray[i] / 50) * 50;
+        r = 0;
+        b = 0;
+      }
+      if (selectColor.options[selectColor.selectedIndex].value === 'blue') {
+        b = Math.ceil(dataArray[i] / 50) * 50;
+        r = 0;
+        g = 0;
+      }
+      colorBlock = 'rgb(' + r + ',' + g + ',' + b + ')';
+      block[i].style.backgroundColor = colorBlock
+    }
+  };
+  clearInterval(timer);
+  timer = setInterval(playMusicAnimation, 33);
 
-    sourceNode.connect(analyser);
-    analyser.connect(audioContext.destination);
+  sourceNode.connect(analyser);
+  analyser.connect(audioContext.destination);
 };
 
-function visualize() {
-    canvasContext.clearRect(0, 0, width, height);
-    analyser.getByteFrequencyData(dataArray);
-    const barWidth = width / bufferLength;
-    let barHeight;
-    let x = 0;
-    heightScale = height/128;
+const visualize = () => {
+  canvasContext.clearRect(0, 0, width, height);
+  analyser.getByteFrequencyData(dataArray);
+  const barWidth = width / bufferLength;
+  let barHeight;
+  let x = 0;
+  heightScale = height / 128;
 
-    for(let i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i];
+  for (let i = 0; i < bufferLength; i++) {
+    barHeight = dataArray[i];
 
-        canvasContext.fillStyle = 'rgb(' + (barHeight+0) + ',4,160)';
-        barHeight *= heightScale;
-        canvasContext.fillRect(x, height-barHeight/2, barWidth, barHeight/2);
-        x += barWidth + 2;
-    }
-    requestAnimationFrame(visualize);
+    canvasContext.fillStyle = 'rgb(' + (barHeight + 0) + ',4,160)';
+    barHeight *= heightScale;
+    canvasContext.fillRect(x, height - barHeight / 2, barWidth, barHeight / 2);
+    x += barWidth + 2;
+  }
+  requestAnimationFrame(visualize);
 
-}
+};
 

@@ -30,22 +30,38 @@ body {
 #api-music button {
     width: 32%;
 }
-
+.settings{
+    margin-top: 5px;
+}
 .searchNav {
     height: auto;
     width: 95%;
-    margin-left: 5%;
+    padding-left: 5%;
     padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
 }
+.searchNav p{
+    font-size: 20px;
+    display: inline;
 
+}
+#inputRange{
+    margin-top: 10px;
+    width: 77%;
+}
 .searchNav input {
     margin: 0;
     display: inline-block;
     width: 60%;
 }
-
+#input-field-size{
+    width: 30%;
+}
 .searchNav button {
     margin-top: -5px;
+    font-size: 1em;
 }
 
 .trackInfo {
@@ -67,7 +83,7 @@ body {
     display: none;
     overflow-y: scroll;
     width: 90%;
-    height: 85%;
+    height: 65%;
     font-weight: bold;
 }
 
@@ -75,6 +91,7 @@ body {
     padding-top: 5px;
     width: 80%;
     background-color: black;
+    transform: scaleY(-1)
 }
 
 #nowPlayingBlock {
@@ -107,4 +124,18 @@ body {
 
 #audio {
     margin-bottom: 0;
+    width: 100%;
 }
+#selectColor{
+    width: 29%;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+.scrollbar-primary::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
+
+.scrollbar-primary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: dimgrey }
