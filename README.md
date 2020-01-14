@@ -1,1 +1,1 @@
-gh-pages - https://kektor44.github.io/Light-organ/
+gh-pages - https://vladtataritsky.github.io/Light-organ/
